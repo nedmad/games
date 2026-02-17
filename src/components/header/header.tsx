@@ -20,8 +20,6 @@ export default function Header() {
                   priority={true}
                 />
               </Link>
-              <Link href={"/"}>Games</Link>
-              <Link href={"/"}>Perfil</Link>
             </nav>
             <div className="hidden sm:flex">
               <GiGamepad size={30} />
