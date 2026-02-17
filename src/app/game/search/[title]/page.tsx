@@ -1,6 +1,7 @@
 import Container from "@/components/container/container";
 import GameCard from "@/components/gameCard/gameCard";
 import Input from "@/components/input/input";
+import { Games } from "@/utils/types/games";
 
 interface PageParams {
   params: Promise<{ title: string }>;
@@ -8,7 +9,7 @@ interface PageParams {
 async function searchGame(title: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_API_URL}/next-api/?api=game&title=${title}`
+      `${process.env.NEXT_API_URL}/next-api/?api=game&title=${title}`,
     );
     return res.json();
   } catch (err) {
@@ -17,20 +18,27 @@ async function searchGame(title: string) {
 }
 export default async function SearchGame({ params }: PageParams) {
   const { title } = await params;
-  const game = await searchGame(title);
+  const game = (await searchGame(title)) as Games[];
+  console.log(game);
+  if (!game) {
+    return (
+      <div>
+        <p>Jogo não encontrado!</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <Container>
         <main>
           <Input />
           <h1 className="font-bold">Veja oque encontramos na nossa base:</h1>
-          {!game && (
-            <div>
-              <p>Jogo não encontrado!</p>
-            </div>
-          )}
+
           <section className="grid  lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  justify-center items-center gap-6">
-            <GameCard data={game} />
+            {game.map((ga) => (
+              <GameCard key={ga.id} data={ga} />
+            ))}
           </section>
         </main>
       </Container>

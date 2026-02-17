@@ -7,13 +7,16 @@ interface GameCardProp {
   data: Games;
 }
 export default function GameCard({ data }: GameCardProp) {
+  console.log("-------------------------------------------------------------");
+  console.log(data);
+
   return (
     <>
       <section
         className="hover:scale-105 transition-all duration-300"
         key={data.id}
       >
-        <Link href={`/game/${data.id}`}>
+        <Link href={`/game/${data?.id}`}>
           <div className="w-full relative h-56">
             <Image
               src={data.image_url}
