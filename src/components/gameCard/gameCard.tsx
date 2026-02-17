@@ -7,9 +7,6 @@ interface GameCardProp {
   data: Games;
 }
 export default function GameCard({ data }: GameCardProp) {
-  console.log("-------------------------------------------------------------");
-  console.log(data);
-
   return (
     <>
       <section

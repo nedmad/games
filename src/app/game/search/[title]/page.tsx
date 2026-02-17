@@ -19,12 +19,17 @@ async function searchGame(title: string) {
 export default async function SearchGame({ params }: PageParams) {
   const { title } = await params;
   const game = (await searchGame(title)) as Games[];
-  console.log(game);
   if (!game) {
     return (
-      <div>
-        <p>Jogo não encontrado!</p>
-      </div>
+      <Container>
+        <main>
+          <Input />
+          <div>
+            <h1 className="font-bold">Veja oque encontramos na nossa base:</h1>
+            <p>Jogo não encontrado!</p>
+          </div>
+        </main>
+      </Container>
     );
   }
 
